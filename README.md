@@ -1,4 +1,4 @@
-run example: 
+before run example, ensure caffe-ssd installed: 
 
 ```shell
 mkdir images/output
