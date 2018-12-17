@@ -1,3 +1,12 @@
+run example: 
+
+```shell
+mkdir images/output
+python ./scripts/test_on_examples.py
+```
+
+----
+
 # Mobilenet+SSD face detector training
 
 This repo contains code for Mobilenet+SSD face detector training. This detector is compatible with Movidius Neural Compute Stick. You need <a href="https://github.com/movidius/ncsdk" target="_blank">NCSDK</a> to test it with Neural Compute Stick.
