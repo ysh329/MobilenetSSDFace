@@ -33,15 +33,26 @@ if __name__ == "__main__":
     # Test Net on several images from images/input, draw bboxes, save to images/output
     path = 'images/input/' 
     save_path = 'images/output/'
-    proto = sys.argv[1]    
+    #proto = sys.argv[1]
+
+    prototxt_path   = "models/ssd_face/ssd_face_deploy_bn.prototxt"
+    caffemodel_path = "models/ssd_face/best_bn_full.caffemodel"
+
+    # ssd_face_pruned
+    #prototxt_path   = "models/ssd_face_pruned/face_deploy.prototxt"
+    #caffemodel_path = "models/ssd_face_pruned/short_init.caffemodel"
     
-    net = caffe.Net(proto, 'models/tmp/test.caffemodel', caffe.TEST)
+    #net = caffe.Net(proto, 'models/tmp/test.caffemodel', caffe.TEST)
+    net = caffe.Net(prototxt_path, caffemodel_path, caffe.TEST)
     
     print('OK')
     
     images = os.listdir(path)
     
-    for p in images:
+    for img_idx in range(len(images)):
+        p = images[img_idx]
+        print("[INFO] ---- img_idx:{} ----".format(img_idx))
+        print("[INFO] img_path:{}".format(p))
         im = cv2.imread(path+p)
         inpt = transform_input(im)
         net.blobs['data'].data[...] = inpt
@@ -53,4 +64,5 @@ if __name__ == "__main__":
             col = [int(c) for c in col]
             cv2.rectangle(im, (box[0], box[1]), (box[2], box[3]), col, 2)
         cv2.imwrite(save_path+p, im)
+        print("[INFO] save_path:{}".format(save_path+p))
         
